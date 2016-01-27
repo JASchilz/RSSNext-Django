@@ -1,0 +1,30 @@
+{% extends "rssnext/home.html" %}
+
+{% block content %}
+
+    <h1>Premium Account Upgrade</h1>
+    <p>Buy one year of premium access for $3.50. Premium users can add up to 200 feeds and are not served sponsored
+    results.</p><br>
+    <!-- writes out the form tag automatically -->
+
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <h3>Account Status</h3>
+            {% with status=request.user.userstatus %}
+            <p>Your account <b>is {% if not status.is_premium %}not{% endif %}</b> premium.</p>
+            {% if status.is_premium %}
+            <p>Your account is premium until: {{ status.premium_until | date:"d M Y" }}</p>
+            {% endif %}
+            {% endwith %}
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <h3>Upgrade Now with Paypal</h3>
+            <p>$3.50 for one year of premium access.</p>
+            {{ form.render }}
+        </div>
+    </div>
+
+{% endblock content %}

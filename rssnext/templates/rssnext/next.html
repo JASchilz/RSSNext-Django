@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html >
+<head>
+    <title>RSSNext Home</title>
+    <link rel="icon" href='/static/rssnext/media/favicon.ico'>
+
+
+</head>
+<body onload="loadJSON()">
+
+    <div data-ng-controller="NextCtrl">
+
+    <div id="link-found" style="display:none">
+    <p>Redirecting you to your next item. Any delays here are due to your content-provider's servers. Do not hit refresh.</p>
+    <p>If you've been waiting more than a few seconds, <a id='link-a' href="#">click here</a> to try loading the page.</p>
+    </div>
+
+    <div id="link-not-found" style="display:none">
+        <p>You have no more new items to read.</p>
+    </div>
+
+    </div>
+
+
+
+    <script>
+
+        function loadJSON() {
+           var data_file = "/v1/entries/";
+           var http_request = new XMLHttpRequest();
+           try{
+              // Opera 8.0+, Firefox, Chrome, Safari
+              http_request = new XMLHttpRequest();
+           }catch (e){
+              // Internet Explorer Browsers
+              try{
+                 http_request = new ActiveXObject("Msxml2.XMLHTTP");
+              }catch (e) {
+                 try{
+                    http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                 }catch (e){
+                    // Something went wrong
+                    alert("Your browser broke!");
+                    return false;
+                 }
+              }
+           }
+           http_request.onreadystatechange  = function(){
+              if (http_request.readyState == 4  )
+              {
+
+                // Javascript function JSON.parse to parse JSON data
+                var jsonObj = JSON.parse(http_request.responseText);
+
+                if (http_request.status == 200 && "link" in jsonObj) {
+
+                    // jsonObj variable now contains the data structure and can
+                    // be accessed as jsonObj.name and jsonObj.country.
+                    document.getElementById("link-a").href = jsonObj.link;
+                    document.getElementById("link-found").style.display = "block";
+
+                    window.location.replace(jsonObj.link);
+
+                }
+                else {
+                    document.getElementById("link-not-found").style.display = "block";
+                }
+              }
+           }
+           http_request.open("GET", data_file, true);
+           http_request.send();
+        }
+
+    </script>
+
+
+</body>
+
+</html>

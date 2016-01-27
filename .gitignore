@@ -1,0 +1,9 @@
+.idea/
+
+*.pyc
+.*swp
+*~
+
+db/db.sqlite3
+rssnext/local_settings.py
+

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load account %}
+{% load staticfiles %}
+
+<html>
+<head>
+    <title>RSSNext - One Click Takes You To Your Next Unread Item</title>
+
+    <!-- JQuery -->
+    <script type="text/javascript" src='//code.jquery.com/jquery-2.1.1.min.js'></script>
+
+    <!-- Bootstrap -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'></script>
+
+    <!-- Font Awesome and Bootstrap Social -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.2.1/bootstrap-social.min.css" rel="stylesheet">
+
+    <!-- Login CSS -->
+    <link href='{% static "rssnext/css/login.css" %}' rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="container">
+    {% block content %}
+
+<div class="container">
+  <div class="page-header">
+   <h1 style="color:white;font-size:6em;">RSSNext
+      <small id="header-small" style="color:white;font-size:.5em;">&nbsp;A single click takes you to your next unread item.</small>
+   </h1>
+</div>
+  <div class="row">
+
+
+    <div class="col-xs-12 col-sm-12 col-md-6 pull-right">
+      <div class="main well opaque">
+
+        <h3>Sign Up</h3>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <a class="btn btn-block btn-social btn-facebook"  style="color:white" href="javascript:allauth.facebook.login('', 'authenticate', 'login')">
+              <i class="fa fa-facebook"></i> Sign up w/Facebook
+            </a>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <a class="btn btn-block btn-social btn-google-plus"  style="color:white">
+              <i class="fa fa-google-plus"></i> Sign up w/Google+
+            </a>
+          </div>
+        </div>
+        <div class="login-or">
+          <span class="span-or">or</span>
+        </div>
+
+        <form class="login" method="POST" action="{% url 'login' %}">
+          <input type='hidden' name='form_name' value='signup_form' />
+          {% csrf_token %}
+            {# Include the hidden fields #}
+            {% for hidden in signup_form.hidden_fields %}
+              {{ hidden }}
+            {% endfor %}
+            {# Include the visible fields #}
+            {% for field in signup_form.visible_fields %}
+              {% ifequal field.id_for_label "id_remember" %}
+                <div class="checkbox pull-right">
+                  <label for="id_remember">
+                    <input type="checkbox" id="id_remember" name="remember">
+                    Remember me </label>
+                </div>
+              {% else %}
+                <div class="form-group">
+                  {% ifequal field.id_for_label "id_password" %}<a class="pull-right" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>{% endifequal %}
+                  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}"
+                         {% if field.value %}value="{{ field.value }}"{% endif %} name="{{ field.html_name }}">
+                  {{ field.errors }}
+                </div>
+              {% endifequal %}
+            {% endfor %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button type="submit" class="btn btn btn-primary">
+            Sign Up
+          </button>
+          {{ signup_form.non_field_errors }}
+        </form>
+
+      </div>
+    </div>
+
+
+
+
+
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <div class="main well">
+
+        <h3>Log In</h3>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <a class="btn btn-block btn-social btn-facebook"  style="color:white" href="javascript:allauth.facebook.login('', 'authenticate', 'login')">
+              <i class="fa fa-facebook"></i> Log in w/Facebook
+            </a>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <a class="btn btn-block btn-social btn-google-plus"  style="color:white">
+              <i class="fa fa-google-plus"></i> Log in w/Google+
+            </a>
+          </div>
+        </div>
+        <div class="login-or">
+          <span class="span-or">or</span>
+        </div>
+
+        <form class="login" method="POST" action="{% url 'login' %}">
+          <input type='hidden' name='form_name' value='login_form' />
+          {% csrf_token %}
+            {# Include the hidden fields #}
+            {% for hidden in login_form.hidden_fields %}
+              {{ hidden }}
+            {% endfor %}
+            {# Include the visible fields #}
+            {% for field in login_form.visible_fields %}
+              {% ifequal field.id_for_label "id_remember" %}
+                <div class="checkbox pull-right">
+                  <label for="id_remember">
+                    <input type="checkbox" id="id_remember" name="remember" checked>
+                    Remember me </label>
+                </div>
+              {% else %}
+                <div class="form-group">
+                  {% ifequal field.id_for_label "id_password" %}<a class="pull-right" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>{% endifequal %}
+                  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}"
+                         {% if field.value %}value="{{ field.value }}"{% endif %} name="{{ field.html_name }}">
+                  {{ field.errors }}
+                </div>
+              {% endifequal %}
+            {% endfor %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button type="submit" class="btn btn btn-primary">
+            Log In
+          </button>
+          {{ login_form.non_field_errors }}
+        </form>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+
+
+{% endblock content %}
+</div>
+
+    {% block extra_body %}
+    {% endblock %}
+
+
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,32 @@
+<div ng-controller="IndexCtrl" ng-cloak>
+
+    <form class="form-inline" style="margin-bottom:20px" role="form">
+        <input type="text" style="width:60%" class="form-control" placeholder="Feed URL" data-ng-model="feed_url">
+        <button data-ng-click="addSubscription()" class="btn btn-default">Add Subscription</button>
+    </form>
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <h3 class="panel-title">Your subscriptions</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+          <tr>
+            <th style="width:70%">Title</th>
+            <th>Actions</th>
+          </tr>
+          <tr ng-repeat="subscription in subscriptions">
+            <td><img src="//www.google.com/s2/favicons?domain={{ subscription.url | domain }}" alt="Google" width="16" height="16" /> {{subscription.title}}</td>
+            <td><a href="subscriptions/{{ subscription.id }}" >Detail</a> - <a href="#" data-ng-click="delete(subscription)">Delete</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
+    <!--<input type="text" data-ng-model="feed_url" />-->
+    <!--<button data-ng-click="addSubscription()">Add Subscription</button>-->
+</div>
+<p>To use, drag this link (<a href="/next/" style="color:blue;text-decoration:underline">RSSNext</a>) into your
+            bookmarks toolbar. Then click the link to visit your next unread item.</p>

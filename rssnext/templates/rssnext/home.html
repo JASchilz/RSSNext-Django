@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load i18n %}
+
+
+<html ng-app="app">
+<head>
+    <title>RSSNext Home</title>
+    <link rel="icon" href='{% static "rssnext/media/favicon.ico" %}'>
+    <base href="/home/">
+
+    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.min.js'></script>
+    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js'></script>
+    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js'></script>
+    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-cookies.min.js'></script>
+    <!--<script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-resource.min.js'></script>-->
+    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/restangular/1.4.0/restangular.min.js'></script>
+
+
+    <!-- JQuery -->
+    <script type="text/javascript" src='//code.jquery.com/jquery-2.1.1.min.js'></script>
+
+    <!-- Bootstrap -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'></script>
+
+    <!-- Custom Bootstrap -->
+    <link href='{% static "rssnext/css/home.css" %}' rel="stylesheet">
+
+    <!-- Custom Javascript -->
+    <script type="text/javascript" src='{% static "rssnext/js/rssnext.js" %}'></script>
+    <script type="text/javascript" src='{% static "rssnext/js/controllers.js" %}'></script>
+    <script type="text/javascript" src='{% static "rssnext/js/app.js" %}'></script>
+
+    <!-- Extra Head -->
+    {% block extra_head %}
+    {% endblock %}
+
+</head>
+<body>
+    <nav class="navbar navbar-default" style="padding-left:5%;padding-right:10%" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">RSSNext</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#" data-toggle="modal" data-target="#instructionsModal">How To Use</a></li>
+            <!--<li><a href="#">Discover Feeds</a></li>-->
+
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href='{% url "logout" %}'>Logout</a></li>
+                <li class="divider"></li>
+                {% if not request.user.premium_status %}
+                <li><a href='{% url "premium" %}'>Go Premium</a></li>
+                {% endif %}
+                <li class="divider"></li>
+                <li><a href='{% url "account_email" %}'>Email</a></li>
+                <li><a href='{% url "account_change_password" %}'>Password</a></li>
+                <li><a href='{% url "socialaccount_connections" %}'>Social Accounts</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div id="alert_messages" style="position:relative;opacity:75%;width:70%;margin-left:auto;margin-right:auto">
+
+    </div>
+
+{% if messages %}
+<div>
+  <strong>Messages:</strong>
+  <ul>
+{% for message in messages %}
+<li>{{message}}</li>
+{% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="container">
+    {% block content %}
+
+        {% verbatim %}
+
+            <div data-ng-view></div>
+
+        {% endverbatim %}
+
+    {% endblock %}
+
+
+
+<!-- Instructions Modal -->
+<div class="modal fade" id="instructionsModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">How To Use RSSNext</h4>
+      </div>
+      <div class="modal-body">
+        <h4>Reading Your Feeds</h4>
+        <p>To use, drag this link (<a href="/next/" style="color:blue;text-decoration:underline">RSSNext</a>) into your
+            bookmarks toolbar. Then click the link to visit your next unread item. When you're done, you can click again
+            to read another item.</p>
+
+            <p>Mobile apps and browser plugins are coming.</p>
+        <h4 style="margin-top:30px">Adding Subscriptions</h4>
+          <p>To add a feed, you must know the feed's rss/atom url. You can often find this by finding a link on the page that
+          says 'rss', or a feedburner subscribe link, or by examining the page's source code.</p>
+          <p>We are developing a search tool that you can use to search for a feed by name.</p>
+          <p>If you have a list of feeds that you would like to import, please contact support@rssnext.net.</p>
+
+          <p></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+    <script>
+
+    </script>
+
+    {% block extra_body %}
+    {% endblock %}
+
+
+</body>
+
+</html>
