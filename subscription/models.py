@@ -142,7 +142,7 @@ class EntryRelation(models.Model):
             return this_entry
 
 
-def show_me_the_money(sender, **kwargs):  # pylint: disable=unused-arguments
+def show_me_the_money(sender, **kwargs):  # pylint: disable=unused-argument
     """
     Process a PayPal payment for premium status.
 
