@@ -1,11 +1,5 @@
 """
-Django settings for rssnext project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
+Django settings for the RSSNext project.
 """
 
 import os
@@ -19,6 +13,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 class Base(Configuration):
+    """
+    Settings which shall apply to both dev and production environments.
+    """
 
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -26,7 +23,7 @@ class Base(Configuration):
     SECRET_KEY = local_settings.SECRET_KEY
 
     SERVER_EMAIL = 'noreply@rssnext.net'
-    ADMINS = (('Joseph Schilz', 'joseph.schilz@gmail.com'), )
+    ADMINS = (('Joseph Schilz', 'joseph.schilz@gmail.com'),)
 
     # Application definition
 
@@ -46,14 +43,14 @@ class Base(Configuration):
         'allauth.socialaccount',
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.google',
-        'sslify',
+        # 'sslify',
         'rest_framework',
         'paypal.standard.ipn',
 
     )
 
     MIDDLEWARE_CLASSES = (
-        'sslify.middleware.SSLifyMiddleware', # This goes first
+        # 'sslify.middleware.SSLifyMiddleware', # This goes first
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
@@ -121,6 +118,7 @@ class Base(Configuration):
     SITE_ID = 1
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
     PAYPAL_IMAGE = '/static/rssnext/media/paypal_buy.gif'
     PAYPAL_SANDBOX_IMAGE = PAYPAL_IMAGE
@@ -130,6 +128,9 @@ class Base(Configuration):
 
 
 class Dev(Base):
+    """
+    Settings which shall apply only to dev environments.
+    """
 
     DEBUG = True
     TEMPLATE_DEBUG = True
@@ -149,6 +150,9 @@ class Dev(Base):
 
 
 class Production(Base):
+    """
+    Settings which shall apply only to production environments.
+    """
 
     import pymysql
     pymysql.install_as_MySQLdb()

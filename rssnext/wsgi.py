@@ -11,7 +11,7 @@ import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "rssnext.settings")
 
 
-def application(environ, start_response):
+def application(environ, start_response):  # pylint: disable=missing-docstring
     os.environ.setdefault('DJANGO_CONFIGURATION', environ['DJANGO_CONFIGURATION'])
 
     from configurations.wsgi import get_wsgi_application

@@ -100,12 +100,17 @@
 
             $scope.addSubscription = function() {
                 Restangular.all('subscriptions').post({url: $scope.feed_url}).then(function(result) {
-                    $scope.subscriptions.push(Restangular.restangularizeElement('subscriptions', result));
+                    var subscription = Restangular.restangularizeElement('subscriptions', result);
+                    subscription.route = "subscriptions";
+                    subscription.parentResource = null;
+
+                    $scope.subscriptions.push(subscription);
                     $scope.feed_url = "";
                 })
             };
 
             $scope.delete = function(subscription) {
+                console.log(subscription);
                 subscription.remove({csrfmiddlewaretoken: $cookies.csrftoken}).then(function() {
                     var index = $scope.subscriptions.indexOf(subscription);
                     if (index > -1) $scope.subscriptions.splice(index, 1);

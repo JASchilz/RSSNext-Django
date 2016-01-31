@@ -1,11 +1,25 @@
+# pylint: disable=unused-argument,attribute-defined-outside-init,missing-docstring
+"""
+Model independent Django views for the RSSNext project.
+"""
+
 from django.views.generic import FormView
 from django.template import RequestContext
+from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response
+from django.views.decorators.csrf import csrf_exempt
 
 from allauth.account.forms import SignupForm, LoginForm
 from allauth.account.views import complete_signup, app_settings
 
+from paypal.standard.forms import PayPalPaymentsForm
+
 
 class LoginAndSignUpFormView(FormView):
+    """
+    View which presents login and signup options to visitors.
+    """
 
     template_name = "account/login.html"
     success_url = "/home/"
@@ -21,8 +35,6 @@ class LoginAndSignUpFormView(FormView):
         return context
 
     def get(self, request, *args, **kwargs):
-        # form_class = self.get_form_class()
-        # form = self.get_form(form_class)
         return self.render_to_response(self.get_context_data())
 
     def post(self, request, *args, **kwargs):
@@ -65,32 +77,36 @@ class LoginAndSignUpFormView(FormView):
                                    app_settings.EMAIL_VERIFICATION,
                                    self.get_success_url())
 
-from paypal.standard.forms import PayPalPaymentsForm
-from django.conf import settings
-from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response
-from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def view_that_asks_for_money(request):
+    """
+    View responsible for redirecting users to PayPal when they request a premium
+    upgrade.
+    """
+
+    url_base = request.scheme + "://" + request.get_host()
 
     # What you want the button to do.
     paypal_dict = {
         "business": settings.PAYPAL_RECEIVER_EMAIL,
         "amount": "3.50",
         "item_name": "RSSNext - 1 Year Premium Upgrade",
-        # "invoice": "unique-invoice-id",
-        "notify_url": request.scheme + "://" + request.get_host() + reverse('paypal-ipn'),
-        "return_url": request.scheme + "://" + request.get_host() + reverse('premium') + "?referer=paypal&status=success",
-        "cancel_return": request.scheme + "://" + request.get_host() + reverse('premium') + "?referer=paypal&status=cancel",
+        "notify_url": url_base + reverse('paypal-ipn'),
+        "return_url": url_base + reverse('premium') + "?referer=paypal&status=success",
+        "cancel_return": url_base + reverse('premium') + "?referer=paypal&status=cancel",
         "custom": request.user.id,
-
     }
 
     # Create the instance.
     form = PayPalPaymentsForm(initial=paypal_dict)
     context = {"form": form}
-    return render_to_response("rssnext/premium.html", context, context_instance=RequestContext(request))
+
+    return render_to_response(
+        "rssnext/premium.html",
+        context,
+        context_instance=RequestContext(request)
+    )
 
 
 

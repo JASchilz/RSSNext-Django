@@ -57,7 +57,7 @@
           <span class="span-or">or</span>
         </div>
 
-        <form class="login" method="POST" action="{% url 'login' %}">
+        <form id="sign-up" class="login" method="POST" action="{% url 'login' %}">
           <input type='hidden' name='form_name' value='signup_form' />
           {% csrf_token %}
             {# Include the hidden fields #}
@@ -118,7 +118,7 @@
           <span class="span-or">or</span>
         </div>
 
-        <form class="login" method="POST" action="{% url 'login' %}">
+        <form id="login" class="login" method="POST" action="{% url 'login' %}">
           <input type='hidden' name='form_name' value='login_form' />
           {% csrf_token %}
             {# Include the hidden fields #}

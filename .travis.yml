@@ -1,0 +1,15 @@
+language: python
+python:
+  - '3.4'
+
+sudo: false
+
+matrix:
+  fast_finish: true
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - python manage.py test
+  - pylint rssnext subscription tests --rcfile=.pylintrc --disable=fixme --disable=locally-disabled

@@ -1,3 +1,7 @@
+"""
+Django Admin setup for the RSSNext project models.
+"""
+
 from django.contrib import admin
 from .models import Subscription, EntryRelation, UserStatus
 

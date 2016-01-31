@@ -1,10 +1,15 @@
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework import status
+# pylint: disable=missing-docstring,unused-argument
+"""
+Django Rest Framework views for the RSSNext project.
+"""
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from django.conf import settings
+
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework import status
 
 from .models import Subscription, EntryRelation
 from .serializers import SubscriptionSerializer, EntryRelationSerializer
@@ -37,7 +42,10 @@ class SubscriptionViewSet(viewsets.mixins.CreateModelMixin,
         if subscription_count >= max_subscriptions:
             content = {
                 'detail': "Maximum subscriptions reached.",
-                'is_premium': 1 if hasattr(request.user, 'userstatus') and request.user.userstatus.is_premium else 0,
+                'is_premium': (
+                    hasattr(request.user, 'userstatus') and
+                    request.user.userstatus.is_premium
+                    ),
                 }
 
             return Response(content, status=status.HTTP_403_FORBIDDEN)
