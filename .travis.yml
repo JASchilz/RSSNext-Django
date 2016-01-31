@@ -4,6 +4,8 @@ python:
 
 sudo: false
 
+env: DJANGO_CONFIGURATION=Dev
+
 matrix:
   fast_finish: true
 
