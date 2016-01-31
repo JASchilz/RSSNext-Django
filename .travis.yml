@@ -12,6 +12,9 @@ matrix:
 install:
   - pip install -r requirements.txt
 
+before_script:
+  - printf "\"\"\"\nComment.\n\"\"\"\n\nSECRET_KEY = 'asdfasdfasfd'\n\nDB_PASSWORD = 'asdfasdf'\n" > rssnext/local_settings.php
+
 script:
   - python manage.py test
   - pylint rssnext subscription tests --rcfile=.pylintrc --disable=fixme --disable=locally-disabled
