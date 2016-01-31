@@ -79,7 +79,7 @@ class LoginAndSignUpFormView(FormView):
 
 
 @csrf_exempt
-def view_that_asks_for_money(request, **kwargs):
+def view_that_asks_for_money(request):
     """
     View responsible for redirecting users to PayPal when they request a premium
     upgrade.

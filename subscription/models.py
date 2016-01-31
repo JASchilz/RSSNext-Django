@@ -142,7 +142,7 @@ class EntryRelation(models.Model):
             return this_entry
 
 
-def show_me_the_money(sender):
+def show_me_the_money(sender, **kwargs):
     """
     Process a PayPal payment for premium status.
 
