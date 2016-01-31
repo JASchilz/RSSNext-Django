@@ -13,7 +13,7 @@ install:
   - pip install -r requirements.txt
 
 before_script:
-  - printf "\"\"\"\nComment.\n\"\"\"\n\nSECRET_KEY = 'asdfasdfasfd'\n\nDB_PASSWORD = 'asdfasdf'\n" > rssnext/local_settings.py
+  - printf "\"\"\"\nComment.\n\"\"\"\n\nSECRET_KEY = 'asdfasdfasfd'\n\nDB_PASSWORD = 'asdfasdf'\nEMAIL_HOST_USER = 'asdf'\nEMAIL_HOST_PASSWORD = 'asdf'\n" > rssnext/local_settings.py
 
 script:
   - python manage.py test
