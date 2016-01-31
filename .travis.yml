@@ -14,7 +14,9 @@ install:
 
 before_script:
   - printf "\"\"\"\nComment.\n\"\"\"\n\nSECRET_KEY = 'asdfasdfasfd'\n\nDB_PASSWORD = 'asdfasdf'\nEMAIL_HOST_USER = 'asdf'\nEMAIL_HOST_PASSWORD = 'asdf'\n" > rssnext/local_settings.py
-
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
 script:
   - python manage.py test
   - pylint rssnext subscription tests --rcfile=.pylintrc --disable=fixme --disable=locally-disabled
