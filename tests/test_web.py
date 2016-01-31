@@ -227,7 +227,7 @@ class TestWeb(StaticLiveServerTestCase):
 
         sleep(1)
 
-        feed_adder.send_keys(self.feeds[0])
+        feed_adder.send_keys(self.feeds[1])
         feed_adder_submit.click()
 
         sleep(4)
