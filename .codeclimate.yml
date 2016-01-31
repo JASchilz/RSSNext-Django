@@ -1,0 +1,7 @@
+languages:
+   Python: true
+exclude_paths:
+- "db/*"
+- "rssnext/static/*"
+- "rssnext/templates/*"
+- "tests/*"
