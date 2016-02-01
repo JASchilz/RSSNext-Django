@@ -41,8 +41,8 @@ class Base(Configuration):
         'allauth',
         'allauth.account',
         'allauth.socialaccount',
-        'allauth.socialaccount.providers.facebook',
-        'allauth.socialaccount.providers.google',
+        # 'allauth.socialaccount.providers.facebook',
+        # 'allauth.socialaccount.providers.google',
         # 'sslify',
         'rest_framework',
         'paypal.standard.ipn',
@@ -102,12 +102,12 @@ class Base(Configuration):
     ACCOUNT_EMAIL_REQUIRED = True
     ACCOUNT_USERNAME_REQUIRED = False
     SOCIALACCOUNT_QUERY_EMAIL = True
-    SOCIALACCOUNT_PROVIDERS = {
-        'facebook': {
-            'SCOPE': ['email'],
-            'METHOD': 'js_sdk'  # instead of 'oauth2'
-        }
-    }
+    # SOCIALACCOUNT_PROVIDERS = {
+    #     'facebook': {
+    #         'SCOPE': ['email'],
+    #         'METHOD': 'js_sdk'  # instead of 'oauth2'
+    #     }
+    # }
 
     REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
