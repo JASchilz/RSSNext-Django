@@ -41,21 +41,21 @@
       <div class="main well opaque">
 
         <h3>Sign Up</h3>
-        <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-6">
-            <a class="btn btn-block btn-social btn-facebook"  style="color:white" href="javascript:allauth.facebook.login('', 'authenticate', 'login')">
-              <i class="fa fa-facebook"></i> Sign up w/Facebook
-            </a>
-          </div>
-          <div class="col-xs-6 col-sm-6 col-md-6">
-            <a class="btn btn-block btn-social btn-google-plus" href="https://www.rssnext.net/accounts/google/login/?process=connect" style="color:white">
-              <i class="fa fa-google-plus"></i> Sign up w/Google+
-            </a>
-          </div>
-        </div>
-        <div class="login-or">
-          <span class="span-or">or</span>
-        </div>
+        <!--<div class="row">-->
+          <!--<div class="col-xs-6 col-sm-6 col-md-6">-->
+            <!--<a class="btn btn-block btn-social btn-facebook"  style="color:white" href="javascript:allauth.facebook.login('', 'authenticate', 'login')">-->
+              <!--<i class="fa fa-facebook"></i> Sign up w/Facebook-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="col-xs-6 col-sm-6 col-md-6">-->
+            <!--<a class="btn btn-block btn-social btn-google-plus" href="https://www.rssnext.net/accounts/google/login/?process=connect" style="color:white">-->
+              <!--<i class="fa fa-google-plus"></i> Sign up w/Google+-->
+            <!--</a>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="login-or">-->
+          <!--<span class="span-or">or</span>-->
+        <!--</div>-->
 
         <form id="sign-up" class="login" method="POST" action="{% url 'login' %}">
           <input type='hidden' name='form_name' value='signup_form' />
@@ -102,21 +102,21 @@
       <div class="main well">
 
         <h3>Log In</h3>
-        <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-6">
-            <a class="btn btn-block btn-social btn-facebook"  style="color:white" href="javascript:allauth.facebook.login('', 'authenticate', 'login')">
-              <i class="fa fa-facebook"></i> Log in w/Facebook
-            </a>
-          </div>
-          <div class="col-xs-6 col-sm-6 col-md-6">
-            <a class="btn btn-block btn-social btn-google-plus" href="//accounts/google/login/?process=connect" style="color:white">
-              <i class="fa fa-google-plus"></i> Log in w/Google+
-            </a>
-          </div>
-        </div>
-        <div class="login-or">
-          <span class="span-or">or</span>
-        </div>
+        <!--<div class="row">-->
+          <!--<div class="col-xs-6 col-sm-6 col-md-6">-->
+            <!--<a class="btn btn-block btn-social btn-facebook"  style="color:white" href="javascript:allauth.facebook.login('', 'authenticate', 'login')">-->
+              <!--<i class="fa fa-facebook"></i> Log in w/Facebook-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="col-xs-6 col-sm-6 col-md-6">-->
+            <!--<a class="btn btn-block btn-social btn-google-plus" href="//accounts/google/login/?process=connect" style="color:white">-->
+              <!--<i class="fa fa-google-plus"></i> Log in w/Google+-->
+            <!--</a>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="login-or">-->
+          <!--<span class="span-or">or</span>-->
+        <!--</div>-->
 
         <form id="login" class="login" method="POST" action="{% url 'login' %}">
           <input type='hidden' name='form_name' value='login_form' />
