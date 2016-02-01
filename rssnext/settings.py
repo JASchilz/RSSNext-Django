@@ -163,12 +163,8 @@ class Production(Base):
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'rssnext_db',
-            'USER': 'awsuser',
-            'PASSWORD': local_settings.DB_PASSWORD,
-            'HOST': 'rssnext-dbinstance.cy0oi4yfufio.us-east-1.rds.amazonaws.com',
-            'PORT': '3306',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db/db.sqlite3'),
         }
     }
 
